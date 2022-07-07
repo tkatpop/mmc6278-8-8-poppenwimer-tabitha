@@ -32,15 +32,15 @@ form.onsubmit = function(e) {
     //If error is found
     .catch(function(err){
         weatherInfo.innerHTML = err.message
+        weatherSearch.value = ""
     })
 }
 
 function showWeather(weather){
-    console.log(weather)
-
     //Reset Values and Fields
-    inputValue = ''
-    weatherInfo.innerHTML = ''
+    weatherInfo.innerHTML = ""
+    weatherSearch.value = ""
+    
 
     //City Name and Country Code
     var cityName = document.createElement('h2')
@@ -53,12 +53,22 @@ function showWeather(weather){
 
     //Description Current Weather
     var currentWeather = document.createElement('p')
-    currentWeather.textContent = weather.value
+    currentWeather.textContent = weather.weather[0].description
     weatherInfo.appendChild(currentWeather)
 
+    //Page Break
+    var br = document.createElement('br')
+    weatherInfo.appendChild(br)
+
     //Actual Temp
+    var actualTemp = document.createElement('p')
+    actualTemp.textContent = weather.main.temp
+    weatherInfo.appendChild(actualTemp)
 
     //Perceived Temp
+    var perTemp = document.createElement('p')
+    perTemp.textContent = weather.main.feels_like
+    weatherInfo.appendChild(perTemp)
 
     //Time of Last Update
 }
