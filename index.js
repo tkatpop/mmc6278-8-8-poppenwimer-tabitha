@@ -86,15 +86,13 @@ function showWeather(weather){
     //Time of Last Update
     var timeUpdated = document.createElement('p')
         //Convert Time to Local Time
-        var date = new Date((weather.dt) * 1000)
+        var date = new Date(weather.dt * 1000)
         var timeString = date.toLocaleTimeString('en-US',{
             hour: 'numeric',
             minute: '2-digit'
-        })
+        }).toLowerCase()
     timeUpdated.textContent = ('Last Updated: ' + timeString)
     weatherInfo.appendChild(timeUpdated)
-
-
 }
 
 
