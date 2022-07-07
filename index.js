@@ -37,6 +37,7 @@ form.onsubmit = function(e) {
 }
 
 function showWeather(weather){
+    console.log(weather)
     //Reset Values and Fields
     weatherInfo.innerHTML = ""
     weatherSearch.value = ""
@@ -48,8 +49,16 @@ function showWeather(weather){
     weatherInfo.appendChild(cityName)
 
     //Google Maps Link
+    var googleMap = document.createElement('a')
+    googleMap.href = ("https://www.google.com/maps/search/?api=1&query=" + weather.coord.lat + "," + weather.coord.lon) 
+    googleMap.textContent = "Click to view map"
+    weatherInfo.appendChild(googleMap)
 
     //Weather Icon
+    var iconImg = document.createElement('img')
+    iconImg.src = ("https://openweathermap.org/img/wn/" + weather.weather[0].icon + "@2x.png")
+    iconImg.alt = "Weather Icon"
+    weatherInfo.appendChild(iconImg)
 
     //Description Current Weather
     var currentWeather = document.createElement('p')
@@ -62,15 +71,30 @@ function showWeather(weather){
 
     //Actual Temp
     var actualTemp = document.createElement('p')
-    actualTemp.textContent = weather.main.temp
+    actualTemp.textContent =('Current Temp: '+ weather.main.temp)
     weatherInfo.appendChild(actualTemp)
 
     //Perceived Temp
     var perTemp = document.createElement('p')
-    perTemp.textContent = weather.main.feels_like
+    perTemp.textContent = ('Feels Like: ' + weather.main.feels_like)
     weatherInfo.appendChild(perTemp)
 
+    //Page Break 2
+    var br2 = document.createElement('br')
+    weatherInfo.appendChild(br2)
+
     //Time of Last Update
+    var timeUpdated = document.createElement('p')
+        //Convert Time to Local Time
+        var date = new Date((weather.dt) * 1000)
+        var timeString = date.toLocaleTimeString('en-US',{
+            hour: 'numeric',
+            minute: '2-digit'
+        })
+    timeUpdated.textContent = ('Last Updated: ' + timeString)
+    weatherInfo.appendChild(timeUpdated)
+
+
 }
 
 
